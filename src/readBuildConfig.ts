@@ -18,8 +18,6 @@ export async function readBuildConfig() {
 
     let client = spawn(tsc, [buildConfigTs, "--module", "commonjs"], { shell: true });
 
-    console.log("tsc exists", tsc, existsSync(tsc));
-
     client.on("exit", (code, signal) => {
       if (code === 0) {
         readConfig(tempConfigFile).then(buildConfig => {
