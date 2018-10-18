@@ -14,14 +14,14 @@ export async function readBuildConfig() {
     let tsc = resolvePath(__dirname, "../node_modules/.bin/tsc");
     let client = spawn(tsc, [buildConfigTs, "--module", "commonjs"], { shell: true });
 
-    client.on("exit", code => {
+    client.on("exit", (code, signal) => {
       if (code === 0) {
         readConfig(tempConfigFile).then(buildConfig => {
           resolve(buildConfig);
           unlinkSync(tempConfigFile);
         });
       } else {
-        reject(`编译${buildConfigTs}时出错！`);
+        reject(`编译${buildConfigTs}时出错！code:${code} signal:${signal}`);
       }
     });
   });
