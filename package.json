@@ -1,6 +1,6 @@
 {
   "name": "happywork-node-builder",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "",
   "typings": "dist/build.config.ts",
   "bin": {
