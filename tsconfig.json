@@ -1,0 +1,25 @@
+// {
+//   "include": ["src/**/*"],
+//   "compilerOptions": {
+//     "allowJs": true,
+//     "moduleResolution": "node",
+//     "noImplicitAny": true,
+//     "target": "esnext",
+//     "jsx": "react",
+//     "module": "esnext",
+//     "declaration": true,
+//     "sourceMap": true,
+//     "allowSyntheticDefaultImports": true,
+//   }
+// }
+
+
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "lib": [
+      "es2015",
+      "es2015.promise"
+    ]
+  }
+}

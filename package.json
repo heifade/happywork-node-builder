@@ -1,0 +1,38 @@
+{
+  "name": "happywork-node-builder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "happywork-node-builder": "./bin/index.js"
+  },
+  "scripts": {
+    "build": "ts-node src/build.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@types/lodash-es": "^4.17.1",
+    "@types/single-line-log": "^1.1.0",
+    "chalk": "^2.4.1",
+    "commander": "^2.19.0",
+    "lodash-es": "^4.17.11",
+    "ntypescript": "^1.201706190042.1",
+    "rollup": "^0.66.6",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-json": "^3.1.0",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-terser": "^3.0.0",
+    "rollup-plugin-typescript": "^1.0.0",
+    "single-line-log": "^1.1.2",
+    "ts-node": "^7.0.1",
+    "tslib": "^1.9.3",
+    "typescript": "^3.1.3"
+  }
+}
