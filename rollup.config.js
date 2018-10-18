@@ -43,5 +43,6 @@ export default {
       exclude: "node_modules/**"
     }),
     terser()
-  ]
+  ],
+  external: ["rollup-plugin-typescript", "rollup-plugin-node-resolve", "rollup-plugin-commonjs", "rollup-plugin-babel", "rollup-plugin-terser"]
 };
