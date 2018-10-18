@@ -52,7 +52,9 @@ async function build() {
   const outputOptions: OutputOptions = {
     dir: buildConfig.output.dir || "dist",
     file: buildConfig.output.file || "index.js",
-    format: buildConfig.output.format || "cjs"
+    format: buildConfig.output.format || "cjs",
+    banner: buildConfig.output.banner || "",
+    footer: buildConfig.output.footer || ""
   };
 
   const bundle = await rollup(inputOptions);
