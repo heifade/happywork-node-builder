@@ -1,6 +1,6 @@
 {
   "name": "happywork-node-builder",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "typings": "dist/build.config.ts",
   "bin": {
@@ -20,9 +20,7 @@
     "@types/lodash-es": "^4.17.1",
     "lodash-es": "^4.17.11",
     "rimraf": "^2.6.2",
-    "rollup": "^0.66.6",
-    "tslib": "^1.9.3",
-    "typescript": "^3.1.3"
+    "rollup": "^0.66.6"
   },
   "dependencies": {
     "rollup-plugin-typescript": "^1.0.0",
@@ -34,6 +32,8 @@
     "@babel/core": "^7.1.2",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.1.0",
-    "@babel/preset-env": "^7.1.0"
+    "@babel/preset-env": "^7.1.0",
+    "tslib": "^1.9.3",
+    "typescript": "^3.1.3"
   }
 }
