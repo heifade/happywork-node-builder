@@ -11,7 +11,11 @@ export async function readBuildConfig() {
     let buildConfigTs = resolvePath(CWD, "./build.config.ts");
     let tempConfigFile = resolvePath(CWD, `./build.config.js`);
 
-    let tsc = resolvePath(__dirname, "../node_modules/.bin/tsc");
+    let tsc = require.resolve('tsc');
+
+    console.log('tsc path', tsc);
+
+    // let tsc = resolvePath(__dirname, "../node_modules/.bin/tsc");
     let client = spawn(tsc, [buildConfigTs, "--module", "commonjs"], { shell: true });
 
 
