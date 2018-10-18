@@ -10,7 +10,7 @@ export default {
   output: {
     dir: "./dist",
     file: "index.js",
-    format: "cjs",
+    format: "cjs"
   },
   onwarn: ({ code, message, loc, frame }) => {
     // 跳过某些警告
