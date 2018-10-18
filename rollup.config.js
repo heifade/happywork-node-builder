@@ -6,11 +6,29 @@ import typescript from "rollup-plugin-typescript";
 import { terser } from "rollup-plugin-terser";
 
 export default {
-  input: "src/index.ts",
+  input: "src/build.ts",
   output: {
     dir: "./dist",
     file: "index.js",
-    format: "cjs"
+    format: "cjs",
+  },
+  onwarn: ({ code, message, loc, frame }) => {
+    // 跳过某些警告
+    if (code === "UNRESOLVED_IMPORT") {
+      return;
+    }
+    // 抛出异常
+    if (code === "NON_EXISTENT_EXPORT") {
+      throw new Error(message);
+    }
+
+    // 打印位置（如果适用）
+    if (loc) {
+      console.warn(`${loc.file} (${loc.line}:${loc.column}) ${message}`);
+      if (frame) console.warn(frame);
+    } else {
+      console.warn(message);
+    }
   },
   plugins: [
     typescript(),
