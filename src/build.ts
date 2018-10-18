@@ -1,11 +1,17 @@
 import { rollup, RollupFileOptions, OutputOptions, RollupWarning } from "rollup";
 
-const typescript = require("rollup-plugin-typescript");
-const resolve = require("rollup-plugin-node-resolve");
-const commonjs = require("rollup-plugin-commonjs");
-const babel = require("rollup-plugin-babel");
-const { terser } = require("rollup-plugin-terser");
+// const typescript = require("rollup-plugin-typescript/dist/rollup-plugin-typescript.cjs");
+// const resolve = require("rollup-plugin-node-resolve");
+// const commonjs = require("rollup-plugin-commonjs");
+// const babel = require("rollup-plugin-babel");
+// const { terser } = require("rollup-plugin-terser");
 import { readBuildConfig } from "./readBuildConfig";
+
+import typescript from "rollup-plugin-typescript/dist/rollup-plugin-typescript.cjs";
+import resolve from "rollup-plugin-node-resolve/dist/rollup-plugin-node-resolve.cjs";
+import commonjs from "rollup-plugin-commonjs/dist/rollup-plugin-commonjs.cjs";
+import babel from "rollup-plugin-babel/dist/rollup-plugin-babel.cjs";
+import { terser } from "rollup-plugin-terser";
 
 async function build() {
   const buildConfig = await readBuildConfig();
@@ -18,6 +24,9 @@ async function build() {
         module: true,
         jsnext: true,
         main: true
+        // customResolveOptions: {
+        //   moduleDirectory: 'js_modules'
+        // }
       }),
       commonjs(),
       babel({
