@@ -2,13 +2,18 @@
   "name": "happywork-node-builder",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/build.config.ts",
+  "module": "dist/build.config.ts",
   "bin": {
     "happywork-node-builder": "./bin/index.js"
   },
   "scripts": {
-    "build": "rollup --config rollup.config.js"
+    "build": "rimraf dist && rollup --config rollup.config.js && node ./tools/copyFiles.js"
   },
+  "files": [
+    "bin",
+    "dist"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -17,6 +22,9 @@
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
+    "@types/lodash-es": "^4.17.1",
+    "lodash-es": "^4.17.11",
+    "rimraf": "^2.6.2",
     "rollup": "^0.66.6",
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-commonjs": "^9.2.0",

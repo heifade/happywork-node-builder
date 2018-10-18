@@ -1,10 +1,10 @@
 import { rollup, RollupFileOptions, OutputOptions, RollupWarning } from "rollup";
+
 const typescript = require("rollup-plugin-typescript");
 const resolve = require("rollup-plugin-node-resolve");
 const commonjs = require("rollup-plugin-commonjs");
 const babel = require("rollup-plugin-babel");
 const { terser } = require("rollup-plugin-terser");
-
 import { readBuildConfig } from "./readBuildConfig";
 
 async function build() {
@@ -64,4 +64,8 @@ async function build() {
   await bundle.write(outputOptions);
 }
 
-build();
+build()
+  .then()
+  .catch(e => {
+    console.error(e);
+  });
