@@ -1,5 +1,5 @@
 import { resolve as resolvePath } from "path";
-import { unlinkSync } from "fs";
+import { unlinkSync, existsSync } from "fs";
 import { spawn } from "child_process";
 import { BuildConfig } from "./build.config";
 import merge from "lodash-es/merge";
@@ -13,6 +13,9 @@ export async function readBuildConfig() {
 
     let tsc = resolvePath(__dirname, "../node_modules/.bin/tsc");
     let client = spawn(tsc, [buildConfigTs, "--module", "commonjs"], { shell: true });
+
+
+    console.log('tsc exists', tsc,  existsSync(tsc))
 
     client.on("exit", (code, signal) => {
       if (code === 0) {
