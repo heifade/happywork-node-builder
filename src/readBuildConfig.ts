@@ -11,10 +11,9 @@ export async function readBuildConfig() {
     const buildConfigTs = resolvePath(CWD, "./build.config.ts");
     const tempConfigFile = resolvePath(CWD, `./build.config.js`);
 
-    const tscPath = "../node_modules/.bin/tsc";
-    let tsc = resolvePath(__dirname, tscPath);
+    let tsc = resolvePath(__dirname, "../node_modules/.bin/tsc");
     if (!existsSync(tsc)) {
-      tsc = resolvePath(CWD, tscPath);
+      tsc = resolvePath(CWD, "./node_modules/.bin/tsc");
     }
 
     if (!existsSync(tsc)) {
