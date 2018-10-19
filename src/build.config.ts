@@ -9,5 +9,6 @@ export interface Output {
 
 export interface BuildConfig {
   input: string;
+  external?: string[];
   output: Output;
 }

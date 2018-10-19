@@ -38,6 +38,7 @@ export async function readBuildConfig() {
 async function readConfig(file: string) {
   const defaultContent = {
     input: "src/index.ts",
+    external: [],
     output: {
       dir: "dist",
       file: "index.js",

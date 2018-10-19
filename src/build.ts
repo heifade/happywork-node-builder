@@ -27,7 +27,7 @@ async function build() {
       }),
       buildConfig.output.mini && terser()
     ],
-    external: ["path"],
+    external: [].concat(buildConfig.external),
     onwarn: (warning: RollupWarning) => {
       const { code, message, loc, frame } = warning;
 
