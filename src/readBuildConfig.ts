@@ -6,17 +6,22 @@ import merge from "lodash-es/merge";
 
 export async function readBuildConfig() {
   return new Promise<BuildConfig>((resolve, reject) => {
-    let CWD = process.cwd();
+    const CWD = process.cwd();
 
-    let buildConfigTs = resolvePath(CWD, "./build.config.ts");
-    let tempConfigFile = resolvePath(CWD, `./build.config.js`);
+    const buildConfigTs = resolvePath(CWD, "./build.config.ts");
+    const tempConfigFile = resolvePath(CWD, `./build.config.js`);
 
-    let tsc = resolvePath(__dirname, "../node_modules/.bin/tsc");
+    const tscPath = "../node_modules/.bin/tsc";
+    let tsc = resolvePath(__dirname, tscPath);
     if (!existsSync(tsc)) {
-      tsc = resolvePath(CWD, "./node_modules/.bin/tsc");
+      tsc = resolvePath(CWD, tscPath);
     }
 
-    let client = spawn(tsc, [buildConfigTs, "--module", "commonjs"], { shell: true });
+    if (!existsSync(tsc)) {
+      throw new Error("tsc is not exists!");
+    }
+
+    const client = spawn(tsc, [buildConfigTs, "--module", "commonjs"], { shell: true });
 
     client.on("exit", (code, signal) => {
       if (code === 0) {
