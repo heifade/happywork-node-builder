@@ -1,5 +1,6 @@
 import { rollup, RollupFileOptions, OutputOptions, RollupWarning } from "rollup";
 import { readBuildConfig } from "./readBuildConfig";
+import json from "rollup-plugin-json";
 import typescript from "rollup-plugin-typescript";
 import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
@@ -13,6 +14,7 @@ async function build() {
     input: buildConfig.input || "src/index.ts",
     plugins: [
       typescript(),
+      json(),
       resolve({
         module: true,
         jsnext: true,
