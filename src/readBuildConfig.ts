@@ -1,41 +1,18 @@
-import { resolve as resolvePath } from "path";
-import { unlinkSync, existsSync } from "fs";
-import { spawn } from "child_process";
 import { BuildConfig } from "./build.config";
 import merge from "lodash-es/merge";
+import { readTs } from "./readTs";
+import { resolve as resolvePath } from "path";
 
 export async function readBuildConfig() {
-  return new Promise<BuildConfig>((resolve, reject) => {
-    const CWD = process.cwd();
+  const CWD = process.cwd();
+  const buildConfig = resolvePath(CWD, "./build.config.ts");
 
-    const buildConfigTs = resolvePath(CWD, "./build.config.ts");
-    const tempConfigFile = resolvePath(CWD, `./build.config.js`);
+  const content = await readTs(buildConfig);
 
-    let tsc = resolvePath(__dirname, "../node_modules/.bin/tsc");
-    if (!existsSync(tsc)) {
-      tsc = resolvePath(CWD, "./node_modules/.bin/tsc");
-    }
-
-    if (!existsSync(tsc)) {
-      throw new Error("tsc is not exists!");
-    }
-
-    const client = spawn(tsc, [buildConfigTs, "--module", "commonjs"], { shell: true });
-
-    client.on("exit", (code, signal) => {
-      if (code === 0) {
-        readConfig(tempConfigFile).then(buildConfig => {
-          resolve(buildConfig);
-          unlinkSync(tempConfigFile);
-        });
-      } else {
-        reject(`编译${buildConfigTs}时出错！code:${code} signal:${signal}`);
-      }
-    });
-  });
+  return await readConfig(content);
 }
 
-async function readConfig(file: string) {
+async function readConfig(content: any) {
   const defaultContent = {
     input: "src/index.ts",
     external: [],
@@ -48,9 +25,7 @@ async function readConfig(file: string) {
   };
   const config: any = {};
 
-  const fileContent = require(file).default as BuildConfig;
-
-  merge(config, defaultContent, fileContent);
+  merge(config, defaultContent, content);
 
   return config as BuildConfig;
 }
