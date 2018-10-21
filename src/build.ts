@@ -19,10 +19,7 @@ async function build() {
         module: true,
         jsnext: true,
         main: true,
-        preferBuiltins: false,
-        customResolveOptions: {
-          moduleDirectory: 'node_modules'
-        }
+        preferBuiltins: false
       }),
       commonjs(),
       babel({
