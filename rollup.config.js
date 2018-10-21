@@ -44,5 +44,16 @@ export default {
     }),
     terser()
   ],
-  external: ["rollup-plugin-typescript", "rollup-plugin-node-resolve", "rollup-plugin-commonjs", "rollup-plugin-babel", "rollup-plugin-terser", "rollup-plugin-json"]
+  external: [
+    "rollup",
+    "rollup-plugin-typescript",
+    "rollup-plugin-node-resolve",
+    "rollup-plugin-commonjs",
+    "rollup-plugin-babel",
+    "rollup-plugin-terser",
+    "rollup-plugin-json",
+    "tslib",
+    "typescript",
+    "@babel"
+  ]
 };
