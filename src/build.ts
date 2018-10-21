@@ -18,10 +18,10 @@ async function build() {
       resolve({
         module: true,
         jsnext: true,
-        main: true
-        // customResolveOptions: {
-        //   moduleDirectory: 'js_modules'
-        // }
+        main: true,
+        customResolveOptions: {
+          moduleDirectory: 'node_modules'
+        }
       }),
       commonjs(),
       babel({
