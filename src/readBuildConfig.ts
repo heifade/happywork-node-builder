@@ -17,7 +17,6 @@ function mergeOutput(output: Output) {
     ...{
       dir: "dist",
       file: "index.js",
-      mini: false,
       format: "cjs"
     },
     ...output
