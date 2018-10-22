@@ -72,6 +72,6 @@ async function build() {
 build()
   .then()
   .catch((e: Error) => {
-    console.error(`构建失败： ${chalk.red(e.message)}`);
+    console.error(chalk.red(`构建失败： ${e.message}`));
     process.exit(1);
   });
