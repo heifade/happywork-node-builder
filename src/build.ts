@@ -1,3 +1,4 @@
+import commander from "commander";
 import { rollup, RollupFileOptions, OutputOptions, RollupWarning, RollupSingleFileBuild } from "rollup";
 import { readBuildConfig } from "./readBuildConfig";
 import json from "rollup-plugin-json";
@@ -81,9 +82,16 @@ async function resolveOutput(output: Output, bundle: RollupSingleFileBuild) {
   await bundle.write(outputOptions);
 }
 
-build()
-  .then()
-  .catch((e: Error) => {
-    console.error(chalk.red(`构建失败： ${e.message}`));
-    process.exit(1);
-  });
+export function addBuildCommand() {
+  commander
+    .command("build")
+    .description("构建项目")
+    .action(pars => {
+      build()
+        .then()
+        .catch((e: Error) => {
+          console.error(chalk.red(`构建失败： ${e.message}`));
+          process.exit(1);
+        });
+    });
+}
