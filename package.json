@@ -1,6 +1,6 @@
 {
   "name": "happywork-node-builder",
-  "version": "1.0.40",
+  "version": "1.0.40-beta5",
   "description": "",
   "typings": "dist/build.config.ts",
   "bin": {
@@ -38,6 +38,7 @@
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-terser": "^3.0.0",
     "rollup-plugin-typescript": "^1.0.0",
+    "ts-node": "^7.0.1",
     "tslib": "^1.9.3",
     "typescript": "^3.1.3"
   }

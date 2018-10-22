@@ -1,6 +1,8 @@
 import commander from "commander";
 import { spawnSync, SpawnSyncOptionsWithStringEncoding, execSync } from "child_process";
 import { print, printError, printSuccess } from "./print";
+import { resolve } from "path";
+import { writeFileSync, unlinkSync } from "fs";
 
 function unitTest(projectPath: string, mochapars: string[]) {
   print("单元测试开始...");
@@ -31,14 +33,33 @@ function unitTest(projectPath: string, mochapars: string[]) {
   print("单元测试成功结束");
 }
 
+// 创建 .nycrc文件
+function createNycrcFile(projectPath: string) {
+  let nycrcFile = resolve(projectPath, ".nycrc");
+
+  writeFileSync(
+    nycrcFile,
+    `{
+  "include": [
+    "src/**/*.ts"
+  ],
+  "extension": [
+    ".ts"
+  ],
+  "require": [
+    "ts-node/register"
+  ],
+  "sourceMap": true,
+  "instrument": true
+}`.trim()
+  );
+  return nycrcFile;
+}
+
 function coveralls(projectPath: string, mochapars: string[]) {
   print("覆盖率开始...");
 
-  // let nyc = getCreateProjectDependencies(projectPath, pathJoin("nyc", "bin", "nyc.js"));
-
-  // let coveralls = getCreateProjectDependencies(projectPath, pathJoin("coveralls", "bin", "coveralls.js"));
-
-  let commandText = `nyc mocha ${mochapars.join(" ")} && nyc report --reporter=text-lcov | coveralls`;
+  let commandText = `nyc report --reporter=text-lcov | coveralls`;
 
   print(`执行命令：${commandText}`);
 
@@ -52,6 +73,10 @@ export function addUnitTestCommand() {
     .command("test")
     .description("单元测试")
     .action(pars => {
-      unitTest(process.cwd(), []);
+      const projectPath = process.cwd();
+      const nycrcFile = createNycrcFile(projectPath); //创建 .nycrc文件
+      unitTest(projectPath, []); // 单元测试
+      coveralls(projectPath, []); // 覆盖率
+      unlinkSync(nycrcFile); //删除 .nycrc文件
     });
 }
