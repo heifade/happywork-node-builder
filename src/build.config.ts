@@ -1,7 +1,7 @@
 export interface Output {
   dir: string;
   file: string;
-  format: "cjs";
+  format: "amd" | "cjs" | "es" | "iife" | "umd";
   banner?: string;
   footer?: string;
 }
