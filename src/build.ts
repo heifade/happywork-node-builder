@@ -13,8 +13,6 @@ import { Output } from "./build.config";
 async function build() {
   const buildConfig = await readBuildConfig();
 
-  console.log("buildConfig", buildConfig);
-
   const inputOptions: RollupFileOptions = {
     input: buildConfig.input || "src/index.ts",
     plugins: [
