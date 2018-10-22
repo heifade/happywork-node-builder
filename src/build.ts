@@ -5,6 +5,7 @@ import typescript from "rollup-plugin-typescript";
 import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
 import babel from "rollup-plugin-babel";
+import chalk from "chalk";
 import { terser } from "rollup-plugin-terser";
 
 async function build() {
@@ -70,7 +71,7 @@ async function build() {
 
 build()
   .then()
-  .catch(e => {
-    console.error(e);
+  .catch((e: Error) => {
+    console.error(`构建失败： ${chalk.red(e.message)}`);
     process.exit(1);
   });
