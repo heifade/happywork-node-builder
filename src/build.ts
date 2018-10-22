@@ -1,4 +1,4 @@
-import { rollup, RollupFileOptions, OutputOptions, RollupWarning } from "rollup";
+import { rollup, RollupFileOptions, OutputOptions, RollupWarning, RollupSingleFileBuild } from "rollup";
 import { readBuildConfig } from "./readBuildConfig";
 import json from "rollup-plugin-json";
 import typescript from "rollup-plugin-typescript";
@@ -7,9 +7,12 @@ import commonjs from "rollup-plugin-commonjs";
 import babel from "rollup-plugin-babel";
 import chalk from "chalk";
 import { terser } from "rollup-plugin-terser";
+import { Output } from "./build.config";
 
 async function build() {
   const buildConfig = await readBuildConfig();
+
+  console.log("buildConfig", buildConfig);
 
   const inputOptions: RollupFileOptions = {
     input: buildConfig.input || "src/index.ts",
@@ -26,7 +29,7 @@ async function build() {
       babel({
         exclude: "node_modules/**"
       }),
-      buildConfig.output.mini && terser()
+      buildConfig.mini && terser()
     ],
     external: [].concat(buildConfig.external),
     onwarn: (warning: RollupWarning) => {
@@ -50,15 +53,24 @@ async function build() {
       }
     }
   };
-  const outputOptions: OutputOptions = {
-    dir: buildConfig.output.dir || "dist",
-    file: buildConfig.output.file || "index.js",
-    format: buildConfig.output.format || "cjs",
-    banner: buildConfig.output.banner || "",
-    footer: buildConfig.output.footer || ""
-  };
-
   const bundle = await rollup(inputOptions);
+  if (buildConfig.output instanceof Array) {
+    buildConfig.output.map(output => {
+      resolveOutput(output, bundle);
+    });
+  } else {
+    resolveOutput(buildConfig.output, bundle);
+  }
+}
+
+async function resolveOutput(output: Output, bundle: RollupSingleFileBuild) {
+  const outputOptions: OutputOptions = {
+    dir: output.dir || "dist",
+    file: output.file || "index.js",
+    format: output.format || "cjs",
+    banner: output.banner || "",
+    footer: output.footer || ""
+  };
 
   // console.log(bundle.imports); // an array of external dependencies
   // console.log(bundle.exports); // an array of names exported by the entry point
