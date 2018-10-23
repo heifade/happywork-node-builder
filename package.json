@@ -1,16 +1,13 @@
 {
   "name": "happywork-node-builder",
-  "version": "1.0.45",
+  "version": "1.0.46",
   "description": "",
   "typings": "config/build.config.ts",
   "bin": {
     "happywork-node-builder": "./bin/index.js"
   },
   "scripts": {
-    "code-build": "rollup --config rollup.config.js",
-    "docs": "typedoc --out docs src --module commonjs --hideGenerator",
-    "format": "node ./tools/formatDocs.js",
-    "build": "npm run code-build"
+    "build": "rollup --config rollup.config.js"
   },
   "files": [
     "bin",
@@ -24,7 +21,8 @@
     "chalk": "^2.4.1",
     "commander": "^2.19.0",
     "lodash-es": "^4.17.11",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "typedoc-format": "^1.0.27"
   },
   "dependencies": {
     "@babel/core": "^7.1.2",
@@ -44,7 +42,6 @@
     "ts-node": "^7.0.1",
     "tslib": "^1.9.3",
     "typedoc": "^0.13.0",
-    "typedoc-format": "^1.0.22",
     "typescript": "^3.1.3"
   }
 }

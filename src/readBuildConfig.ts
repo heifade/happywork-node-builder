@@ -4,11 +4,8 @@ import { readTs } from "./readTs";
 import { resolve as resolvePath } from "path";
 
 export async function readBuildConfig() {
-  const CWD = process.cwd();
-  const buildConfig = resolvePath(CWD, "./build.config.ts");
-
+  const buildConfig = resolvePath(process.cwd(), "./build.config.ts");
   const content = await readTs(buildConfig);
-
   return await readConfig(content);
 }
 

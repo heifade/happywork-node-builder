@@ -1,20 +1,15 @@
-import commander from "commander";
+
 import { rollup, RollupFileOptions, OutputOptions, RollupWarning, RollupSingleFileBuild } from "rollup";
-import { readBuildConfig } from "./readBuildConfig";
+import { readBuildConfig } from "../readBuildConfig";
 import json from "rollup-plugin-json";
 import typescript from "rollup-plugin-typescript";
 import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
 import babel from "rollup-plugin-babel";
-import chalk from "chalk";
 import { terser } from "rollup-plugin-terser";
-import { Output } from "../config/build.config";
-import { print } from "./print";
-import { resolve as pathResolve } from "path";
-import { spawnSync } from "child_process";
-import { format } from "typedoc-format";
+import { Output } from "../../config/build.config";
 
-async function build() {
+export async function build() {
   const buildConfig = await readBuildConfig();
 
   const inputOptions: RollupFileOptions = {
@@ -82,34 +77,4 @@ async function resolveOutput(output: Output, bundle: RollupSingleFileBuild) {
   const { code, map } = await bundle.generate(outputOptions);
 
   await bundle.write(outputOptions);
-}
-
-async function buildDocs(projectPath: string) {
-  print("正在生成文档...");
-  let docs = pathResolve(projectPath, "docs");
-  let src = pathResolve(projectPath, "src");
-
-  print(`执行命令：typedoc --out ${docs} ${src} --module commonjs --hideGenerator --lib lib.es6.d.ts`);
-  await spawnSync("typedoc", ["--out", docs, src, "--module", "commonjs", "--hideGenerator", "--lib", "lib.es6.d.ts"]);
-
-  await format(docs);
-}
-
-export function addBuildCommand() {
-  commander
-    .command("build")
-    .option("--doc", "是否生成文档", false)
-    .description("构建项目")
-    .action(pars => {
-      build()
-        .then()
-        .catch((e: Error) => {
-          console.error(chalk.red(`构建失败： ${e.message}`));
-          process.exit(1);
-        });
-
-      if (pars.doc) {
-        buildDocs(process.cwd());
-      }
-    });
 }
