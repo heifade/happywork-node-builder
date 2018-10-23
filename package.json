@@ -1,13 +1,18 @@
 {
   "name": "happywork-node-builder",
-  "version": "1.0.42",
+  "version": "1.0.43",
   "description": "",
   "typings": "dist/build.config.ts",
   "bin": {
     "happywork-node-builder": "./bin/index.js"
   },
   "scripts": {
-    "build": "rimraf dist && rollup --config rollup.config.js && node ./tools/copyFiles.js"
+    "clean": "rimraf dist",
+    "code-build": "rollup --config rollup.config.js",
+    "copy": "node ./tools/copyFiles.js",
+    "docs": "typedoc --out docs src --module commonjs --hideGenerator",
+    "format": "node ./tools/formatDocs.js",
+    "build": "npm run clean && npm run code-build && npm run build && npm run docs && npm run format"
   },
   "files": [
     "bin",
@@ -40,6 +45,8 @@
     "rollup-plugin-typescript": "^1.0.0",
     "ts-node": "^7.0.1",
     "tslib": "^1.9.3",
+    "typedoc": "^0.13.0",
+    "typedoc-format": "^1.0.22",
     "typescript": "^3.1.3"
   }
 }
