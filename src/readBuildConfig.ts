@@ -1,4 +1,4 @@
-import { BuildConfig, Output } from "./build.config";
+import { BuildConfig, Output } from "../config/build.config";
 import merge from "lodash-es/merge";
 import { readTs } from "./readTs";
 import { resolve as resolvePath } from "path";

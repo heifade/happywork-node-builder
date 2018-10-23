@@ -8,7 +8,7 @@ import commonjs from "rollup-plugin-commonjs";
 import babel from "rollup-plugin-babel";
 import chalk from "chalk";
 import { terser } from "rollup-plugin-terser";
-import { Output } from "./build.config";
+import { Output } from "../config/build.config";
 
 async function build() {
   const buildConfig = await readBuildConfig();

@@ -1,22 +1,22 @@
 {
   "name": "happywork-node-builder",
-  "version": "1.0.43",
+  "version": "1.0.44",
   "description": "",
-  "typings": "dist/build.config.ts",
+  "typings": "config/build.config.ts",
   "bin": {
     "happywork-node-builder": "./bin/index.js"
   },
   "scripts": {
     "clean": "rimraf dist",
     "code-build": "rollup --config rollup.config.js",
-    "copy": "node ./tools/copyFiles.js",
     "docs": "typedoc --out docs src --module commonjs --hideGenerator",
     "format": "node ./tools/formatDocs.js",
-    "build": "npm run clean && npm run code-build && npm run build && npm run docs && npm run format"
+    "build": "npm run clean && npm run code-build && npm run docs && npm run format"
   },
   "files": [
     "bin",
-    "dist"
+    "dist",
+    "config"
   ],
   "keywords": [],
   "author": "",
