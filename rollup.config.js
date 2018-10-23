@@ -8,9 +8,10 @@ import { terser } from "rollup-plugin-terser";
 export default {
   input: "src/index.ts",
   output: {
-    dir: "./dist",
+    dir: "./bin",
     file: "index.js",
-    format: "cjs"
+    format: "cjs",
+    banner: "#!/usr/bin/env node"
   },
   onwarn: ({ code, message, loc, frame }) => {
     // 跳过某些警告
