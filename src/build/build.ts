@@ -73,8 +73,7 @@ async function resolveOutput(output: Output, bundle: RollupSingleFileBuild) {
   // console.log(bundle.imports); // an array of external dependencies
   // console.log(bundle.exports); // an array of names exported by the entry point
   // console.log(bundle.modules); // an array of module objects
-
-  const { code, map } = await bundle.generate(outputOptions);
+  // const { code, map } = await bundle.generate(outputOptions);
 
   await bundle.write(outputOptions);
 }
