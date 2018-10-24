@@ -1,14 +1,8 @@
-export interface Output {
-  dir: string;
-  file: string;
-  format: "amd" | "cjs" | "es" | "iife" | "umd";
-  banner?: string;
-  footer?: string;
-}
+import { ExternalOption, OutputOptions } from "rollup";
 
 export interface BuildConfig {
-  input: string;
-  external?: string[];
-  output: Output | Output[];
+  input: string[] | { [entryName: string]: string };
+  external?: ExternalOption;
+  output: OutputOptions | OutputOptions[];
   mini: boolean;
 }

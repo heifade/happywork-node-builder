@@ -11,7 +11,8 @@ export default {
     dir: "./bin",
     file: "index.js",
     format: "cjs",
-    banner: "#!/usr/bin/env node"
+    banner: "#!/usr/bin/env node",
+    sourcemap: true
   },
   onwarn: ({ code, message, loc, frame }) => {
     // 跳过某些警告
@@ -38,7 +39,7 @@ export default {
       module: true,
       jsnext: true,
       main: true,
-      preferBuiltins: false,
+      preferBuiltins: false
     }),
     commonjs(),
     babel({

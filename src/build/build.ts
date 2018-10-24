@@ -1,5 +1,4 @@
-
-import { rollup, RollupFileOptions, OutputOptions, RollupWarning, RollupSingleFileBuild } from "rollup";
+import { rollup, RollupDirOptions, OutputOptions, RollupWarning, RollupBuild } from "rollup";
 import { readBuildConfig } from "../readBuildConfig";
 import json from "rollup-plugin-json";
 import typescript from "rollup-plugin-typescript";
@@ -7,13 +6,12 @@ import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
 import babel from "rollup-plugin-babel";
 import { terser } from "rollup-plugin-terser";
-import { Output } from "../../config/build.config";
 
 export async function build() {
   const buildConfig = await readBuildConfig();
 
-  const inputOptions: RollupFileOptions = {
-    input: buildConfig.input || "src/index.ts",
+  const inputOptions: RollupDirOptions = {
+    input: buildConfig.input || ["src/index.ts"],
     plugins: [
       typescript(),
       json(),
@@ -29,7 +27,7 @@ export async function build() {
       }),
       buildConfig.mini && terser()
     ],
-    external: [].concat(buildConfig.external),
+    external: buildConfig.external,
     onwarn: (warning: RollupWarning) => {
       const { code, message, loc, frame } = warning;
 
@@ -61,13 +59,14 @@ export async function build() {
   }
 }
 
-async function resolveOutput(output: Output, bundle: RollupSingleFileBuild) {
+async function resolveOutput(output: OutputOptions, bundle: RollupBuild) {
   const outputOptions: OutputOptions = {
     dir: output.dir || "dist",
     file: output.file || "index.js",
     format: output.format || "cjs",
     banner: output.banner || "",
-    footer: output.footer || ""
+    footer: output.footer || "",
+    sourcemap: output.sourcemap || false
   };
 
   // console.log(bundle.imports); // an array of external dependencies
