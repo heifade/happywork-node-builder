@@ -11,6 +11,7 @@ export async function build() {
   const buildConfig = await readBuildConfig();
 
   const inputOptions: RollupDirOptions = {
+    experimentalCodeSplitting: true,
     input: buildConfig.input || ["src/index.ts"],
     plugins: [
       typescript(),
@@ -62,7 +63,6 @@ export async function build() {
 async function resolveOutput(output: OutputOptions, bundle: RollupBuild) {
   const outputOptions: OutputOptions = {
     dir: output.dir || "dist",
-    file: output.file || "index.js",
     format: output.format || "cjs",
     banner: output.banner || "",
     footer: output.footer || "",

@@ -6,12 +6,12 @@ import typescript from "rollup-plugin-typescript";
 import { terser } from "rollup-plugin-terser";
 
 export default {
+  experimentalCodeSplitting: true,
   input: {
     index: "src/index.ts"
   },
   output: {
     dir: "./bin",
-    file: "index.js",
     format: "cjs",
     banner: "#!/usr/bin/env node",
     sourcemap: true
@@ -35,6 +35,7 @@ export default {
     }
   },
   plugins: [
+    // multiEntry(),
     typescript(),
     json(),
     resolve({
