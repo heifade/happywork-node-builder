@@ -4,6 +4,7 @@ import commonjs from "rollup-plugin-commonjs";
 import babel from "rollup-plugin-babel";
 import typescript from "rollup-plugin-typescript";
 import { terser } from "rollup-plugin-terser";
+import pkg from "./package.json";
 
 export default {
   experimentalCodeSplitting: true,
@@ -50,16 +51,5 @@ export default {
     }),
     terser()
   ],
-  external: [
-    "rollup",
-    "rollup-plugin-typescript",
-    "rollup-plugin-node-resolve",
-    "rollup-plugin-commonjs",
-    "rollup-plugin-babel",
-    "rollup-plugin-terser",
-    "rollup-plugin-json",
-    "tslib",
-    "typescript",
-    "@babel"
-  ]
+  external: Object.keys(pkg.dependencies).concat(["fs", "path"])
 };

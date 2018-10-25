@@ -7,9 +7,10 @@ import babel from "rollup-plugin-babel";
 import { terser } from "rollup-plugin-terser";
 import { resolve as resolvePath } from "path";
 import { readTs } from "../readTs";
+import { BuildConfig } from "../../config/build.config";
 
 export async function build() {
-  const buildConfig = await readTs(resolvePath(process.cwd(), "./build.config.ts"));
+  const buildConfig: BuildConfig = await readTs(resolvePath(process.cwd(), "./build.config.ts"));
 
   const inputOptions: RollupDirOptions = {
     experimentalCodeSplitting: true,
