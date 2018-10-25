@@ -1,14 +1,15 @@
 import { rollup, RollupDirOptions, OutputOptions, RollupWarning, RollupBuild } from "rollup";
-import { readBuildConfig } from "../readBuildConfig";
 import json from "rollup-plugin-json";
 import typescript from "rollup-plugin-typescript";
 import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
 import babel from "rollup-plugin-babel";
 import { terser } from "rollup-plugin-terser";
+import { resolve as resolvePath } from "path";
+import { readTs } from "../readTs";
 
 export async function build() {
-  const buildConfig = await readBuildConfig();
+  const buildConfig = await readTs(resolvePath(process.cwd(), "./build.config.ts"));
 
   const inputOptions: RollupDirOptions = {
     experimentalCodeSplitting: true,
