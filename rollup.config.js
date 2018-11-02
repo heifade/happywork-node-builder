@@ -4,6 +4,8 @@ import commonjs from "rollup-plugin-commonjs";
 import babel from "rollup-plugin-babel";
 import typescript from "rollup-plugin-typescript";
 import { terser } from "rollup-plugin-terser";
+import replace from "rollup-plugin-replace";
+import { dirname } from "path";
 import pkg from "./package.json";
 
 export default {
@@ -46,6 +48,9 @@ export default {
       preferBuiltins: false
     }),
     commonjs(),
+    replace({
+      __dirname: id => `"${dirname(id)}"`
+    }),
     babel({
       exclude: "node_modules/**"
     }),

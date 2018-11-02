@@ -5,7 +5,8 @@ import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
 import babel from "rollup-plugin-babel";
 import { terser } from "rollup-plugin-terser";
-import { resolve as resolvePath } from "path";
+import { resolve as resolvePath, dirname } from "path";
+import replace from "rollup-plugin-replace";
 import { readTs } from "../readTs";
 import { BuildConfig } from "../../config/build.config";
 
@@ -25,6 +26,9 @@ export async function build() {
         preferBuiltins: false
       }),
       commonjs(),
+      replace({
+        __dirname: id => `"${dirname(id)}"`
+      }),
       babel({
         exclude: "node_modules/**"
       }),

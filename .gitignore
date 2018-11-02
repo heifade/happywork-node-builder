@@ -4,6 +4,7 @@
 /node_modules
 /dist
 /test
+/bin
 
 .DS_Store
 npm-debug.log*
