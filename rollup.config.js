@@ -17,7 +17,7 @@ export default {
     dir: "./bin",
     format: "cjs",
     banner: "#!/usr/bin/env node",
-    sourcemap: true
+    sourcemap: false
   },
   onwarn: ({ code, message, loc, frame }) => {
     // 跳过某些警告
@@ -41,6 +41,10 @@ export default {
     // multiEntry(),
     typescript(),
     json(),
+    replace({
+      __dirname: id => `"${dirname(id)}"`,
+      exclude: ['./src/build/build.ts'],
+    }),
     resolve({
       module: true,
       jsnext: true,
@@ -48,9 +52,6 @@ export default {
       preferBuiltins: false
     }),
     commonjs(),
-    replace({
-      __dirname: id => `"${dirname(id)}"`
-    }),
     babel({
       exclude: "node_modules/**"
     }),

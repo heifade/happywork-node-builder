@@ -19,6 +19,9 @@ export async function build() {
     plugins: [
       typescript(),
       json(),
+      replace({
+        __dirname: id => `"${dirname(id)}"`
+      }),
       resolve({
         module: true,
         jsnext: true,
@@ -26,9 +29,6 @@ export async function build() {
         preferBuiltins: false
       }),
       commonjs(),
-      replace({
-        __dirname: id => `"${dirname(id)}"`
-      }),
       babel({
         exclude: "node_modules/**"
       }),
